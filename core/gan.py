@@ -124,12 +124,11 @@ class GAN:
                     if plot_interval != 0 and (batches_done % plot_interval == 0):
                         vis.show_gan_image_predictions(self, 32, image_shape=image_shape)
 
-                prog_bar.set_description(D_losses)
-                prog_bar.set_description(G_losses)
-                D_accs_avg.append(np.mean(D_accs))
-                D_losses_avg.append(np.mean(D_losses))
-                G_accs_avg.append(np.mean(G_accs))
-                G_losses_avg.append(np.mean(G_losses))
+               
+                D_accs_avg.append(D_accs)
+                D_losses_avg.append(D_losses)
+                G_accs_avg.append(G_accs)
+                G_losses_avg.append(G_losses)
 
         return D_accs_avg, D_losses_avg, G_accs_avg, G_losses_avg
 
