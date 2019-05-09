@@ -123,6 +123,9 @@ class GAN:
                                                  " G acc: " + str(round(g_accuracy, 4)))
                     if plot_interval != 0 and (batches_done % plot_interval == 0):
                         vis.show_gan_image_predictions(self, 32, image_shape=image_shape)
+
+                print(D_losses)
+                print(G_losses)
                 D_accs_avg.append(np.mean(D_accs))
                 D_losses_avg.append(np.mean(D_losses))
                 G_accs_avg.append(np.mean(G_accs))
