@@ -64,6 +64,11 @@ class GAN:
                              log_interval=1, plot_interval=50, image_shape=None):
         if batch_size >= X.shape[0]:
             batch_size = X.shape[0]
+        
+        D_accs_avg = []
+        D_losses_avg = []
+        G_accs_avg = []
+        G_losses_avg = []
 
         with trange(batches) as prog_bar:
             for i in prog_bar:
@@ -81,6 +86,12 @@ class GAN:
                                              " G acc: " + str(round(g_accuracy, 4)))
                 if plot_interval != 0 and (i % plot_interval == 0):
                     vis.show_gan_image_predictions(self, 32, image_shape=image_shape)
+
+                D_accs_avg.append(d_accuracy)
+                D_losses_avg.append(d_loss)
+                G_accs_avg.append(g_accuracy)
+                G_losses_avg.append(g_loss)
+        return D_accs_avg, D_losses_avg, G_accs_avg, G_losses_avg
 
     def train(self, X, Y=None, epochs=10, batch_size=32, log_interval=1, plot_interval=50, image_shape=None):
         if batch_size >= X.shape[0]:
@@ -120,7 +131,7 @@ class GAN:
                     D_losses_avg.append(d_loss)
                     G_accs_avg.append(g_accuracy)
                     G_losses_avg.append(g_loss)
-                    
+
                     batches_done = batches_done + 1
                     if log_interval != 0 and (batches_done % log_interval == 0):
                         prog_bar.set_description("Epoch " + str(i + 1) + ",  " + " D loss: " + str(round(d_loss, 4)) +
