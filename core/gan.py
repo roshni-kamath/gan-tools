@@ -88,6 +88,10 @@ class GAN:
 
         batches_done = 0
         batch_count = X.shape[0] // batch_size
+        D_accs_avg = []
+        D_losses_avg = []
+        G_accs_avg = []
+        G_losses_avg = []
         with trange(epochs) as prog_bar:
             for i in prog_bar:
                 D_accs = []
@@ -119,6 +123,12 @@ class GAN:
                                                  " G acc: " + str(round(g_accuracy, 4)))
                     if plot_interval != 0 and (batches_done % plot_interval == 0):
                         vis.show_gan_image_predictions(self, 32, image_shape=image_shape)
+                D_accs_avg.append(np.mean(D_accs))
+                D_losses_avg.append(np.mean(D_accs))
+                G_accs_avg.append(np.mean(D_accs))
+                G_losses_avg.append(np.mean(D_accs))
+
+        return D_accs_avg, D_losses_avg, G_accs_avg, G_losses_avg
 
     def train_generator(self, batch_size):
         # Train the generator, 2* batch size to get the same nr as the discriminator
