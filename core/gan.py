@@ -115,6 +115,12 @@ class GAN:
                     D_losses.append(d_loss)
                     G_accs.append(g_accuracy)
                     G_losses.append(g_loss)
+
+                    D_accs_avg.append(d_accuracy)
+                    D_losses_avg.append(d_loss)
+                    G_accs_avg.append(g_accuracy)
+                    G_losses_avg.append(g_loss)
+                    
                     batches_done = batches_done + 1
                     if log_interval != 0 and (batches_done % log_interval == 0):
                         prog_bar.set_description("Epoch " + str(i + 1) + ",  " + " D loss: " + str(round(d_loss, 4)) +
@@ -125,10 +131,10 @@ class GAN:
                         vis.show_gan_image_predictions(self, 32, image_shape=image_shape)
 
                
-                D_accs_avg.append(D_accs)
-                D_losses_avg.append(D_losses)
-                G_accs_avg.append(G_accs)
-                G_losses_avg.append(G_losses)
+                #D_accs_avg.append(D_accs)
+                # D_losses_avg.append(D_losses)
+                # G_accs_avg.append(G_accs)
+                # G_losses_avg.append(G_losses)
 
         return D_accs_avg, D_losses_avg, G_accs_avg, G_losses_avg
 
